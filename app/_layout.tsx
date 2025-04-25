@@ -12,9 +12,7 @@ export default function RootLayout() {
   return (
     <I18nextProvider i18n={i18n}>
       <TamaguiProvider config={config}>
-        <Stack>
-          <Stack.Screen name="(tabs)" />
-        </Stack>
+        <Stack screenOptions={{ headerShown: false }}></Stack>
       </TamaguiProvider>
     </I18nextProvider>
   );

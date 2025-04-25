@@ -1,4 +1,6 @@
 {
   "welcomeMsg": "Welcome to my MealAtor app",
-  "subWelcomeMsg": "Plan your meals with ease."
+  "subWelcomeMsg": "Plan your meals with ease.",
+  "suggestMeal": "Suggest a meal",
+  "settings": "Settings"
 }

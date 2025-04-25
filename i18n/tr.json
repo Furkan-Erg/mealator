@@ -1,4 +1,6 @@
 {
   "welcomeMsg": "MealAtor'e hoş geldiniz",
-  "subWelcomeMsg": "Yemeklerinizi kolayca planlayın."
+  "subWelcomeMsg": "Yemeklerinizi kolayca planlayın.",
+  "suggestMeal": "Yemek öner",
+  "settings": "Ayarlar"
 }
