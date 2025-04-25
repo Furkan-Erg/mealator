@@ -1,12 +1,13 @@
 import React from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
+import { Button } from "tamagui";
 
 const HomePage = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Welcome to Mealator!</Text>
       <Text style={styles.subtitle}>Plan your meals with ease.</Text>
-      <Button title="Get Started" onPress={onClickButton} />
+      <Button onPress={onClickButton}>Öner</Button>
     </View>
   );
 };
