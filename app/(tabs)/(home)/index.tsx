@@ -1,13 +1,18 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { Button } from "tamagui";
+import { Button, H1, H2, H3, H5 } from "tamagui";
+
+import { useTranslation } from "react-i18next";
+import { Link } from "expo-router";
 
 const HomePage = () => {
+  const { t } = useTranslation();
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Welcome to Mealator!</Text>
-      <Text style={styles.subtitle}>Plan your meals with ease.</Text>
+      <H3 style={styles.title}>{t("welcomeMsg")}</H3>
+      <H5 style={styles.subtitle}>{t("subWelcomeMsg")}</H5>
       <Button onPress={onClickButton}>Öner</Button>
+      <Link href="/settings">ayarlar</Link>
     </View>
   );
 };
@@ -24,12 +29,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#f8f8f8",
   },
   title: {
-    fontSize: 24,
     fontWeight: "bold",
     color: "#333",
   },
   subtitle: {
-    fontSize: 16,
     color: "#666",
     marginTop: 8,
   },
