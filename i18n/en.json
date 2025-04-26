@@ -1,5 +1,5 @@
 {
-  "welcomeMsg": "Welcome to my MealAtor app",
+  "welcomeMsg": "Welcome MealAtor app",
   "subWelcomeMsg": "Plan your meals with ease.",
   "suggestMeal": "Suggest a meal",
   "settings": "Settings",
@@ -8,5 +8,7 @@
   "favorites": "Favorites",
   "home": "Home",
   "shoppingListNoData": "You haven't added any items to the shopping list yet.",
-  "ingredients": "Ingredients"
+  "ingredients": "Ingredients",
+  "mealDetails": "Meal Details",
+  "mealList": "Meal List"
 }

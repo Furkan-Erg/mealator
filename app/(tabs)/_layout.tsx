@@ -1,31 +1,59 @@
 import { Tabs } from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { t } from "i18next";
+import { useTranslation } from "react-i18next";
+import { useEffect, useState } from "react";
+
 export default function TabLayout() {
+  const { t } = useTranslation();
+  const [titles, setTitles] = useState({
+    home: "",
+    favorites: "",
+    mealList: "",
+    shoppingList: "",
+  });
+
+  useEffect(() => {
+    setTitles({
+      home: t("home"),
+      favorites: t("favorites"),
+      mealList: t("mealList"),
+      shoppingList: t("shoppingList"),
+    });
+  }, [t]);
+
   return (
     <Tabs screenOptions={{ headerShown: false }}>
       <Tabs.Screen
-        name="(home)"
-        options={{
-          title: t("home"),
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="home" size={size} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
         name="favorites"
         options={{
-          title: t("favorites"),
+          title: titles.favorites,
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="bookmark" size={size} color={color} />
           ),
         }}
       />
       <Tabs.Screen
+        name="(home)"
+        options={{
+          title: titles.home,
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="home" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="mealList"
+        options={{
+          title: titles.mealList,
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="pizza" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="shoppingList"
         options={{
-          title: t("shoppingList"),
+          title: titles.shoppingList,
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="cart" size={size} color={color} />
           ),

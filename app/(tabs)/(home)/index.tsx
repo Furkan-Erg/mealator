@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, StyleSheet } from "react-native";
-import { Button, H3, H5 } from "tamagui";
+import { Button, H3, H5, ScrollView, YStack } from "tamagui";
 import { useTranslation } from "react-i18next";
 import { Link } from "expo-router";
 import { CardComponent } from "@/app/components/CardComponent";
@@ -35,7 +35,11 @@ const HomePage = () => {
       >
         {t("suggestMeal")}
       </Button>
-      <CardComponent list={cardList}></CardComponent>
+      <YStack height={310} >
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <CardComponent list={cardList}></CardComponent>
+        </ScrollView>
+      </YStack>
       <Link href="/settings" style={{ marginTop: 20 }}>
         {t("settings")}
       </Link>

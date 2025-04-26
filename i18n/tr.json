@@ -8,5 +8,7 @@
   "favorites": "Favoriler",
   "home": "Ana sayfa",
   "shoppingListNoData": "Henüz alışveriş listesine malzeme eklemediniz.",
-  "ingredients": "Malzemeler"
+  "ingredients": "Malzemeler",
+  "mealDetails": "Yemek Detayları",
+  "mealList": "Yemek Listesi"
 }
