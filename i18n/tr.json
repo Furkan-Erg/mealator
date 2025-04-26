@@ -2,5 +2,11 @@
   "welcomeMsg": "MealAtor'e hoş geldiniz",
   "subWelcomeMsg": "Yemeklerinizi kolayca planlayın.",
   "suggestMeal": "Yemek öner",
-  "settings": "Ayarlar"
+  "settings": "Ayarlar",
+  "addToShoppingList": "Alışveriş listesine {{count}} malzeme ekle",
+  "shoppingList": "Alışveriş listesi",
+  "favorites": "Favoriler",
+  "home": "Ana sayfa",
+  "shoppingListNoData": "Henüz alışveriş listesine malzeme eklemediniz.",
+  "ingredients": "Malzemeler"
 }

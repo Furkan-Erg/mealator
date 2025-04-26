@@ -2,5 +2,11 @@
   "welcomeMsg": "Welcome to my MealAtor app",
   "subWelcomeMsg": "Plan your meals with ease.",
   "suggestMeal": "Suggest a meal",
-  "settings": "Settings"
+  "settings": "Settings",
+  "addToShoppingList": "Add {count} items to shopping list",
+  "shoppingList": "Shopping List",
+  "favorites": "Favorites",
+  "home": "Home",
+  "shoppingListNoData": "You haven't added any items to the shopping list yet.",
+  "ingredients": "Ingredients"
 }

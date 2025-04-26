@@ -1,16 +1,26 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
-import { Button, H1, H2, H3, H5 } from "tamagui";
-
+import { View, StyleSheet } from "react-native";
+import { Button, H3, H5 } from "tamagui";
 import { useTranslation } from "react-i18next";
 import { Link } from "expo-router";
 import { CardComponent } from "@/app/components/CardComponent";
-import { useMealStore } from "@/app/stores/mealStore";
-
+import useMealStore from "@/app/stores/mealStore";
+import { Meal } from "@/app/states/mealState";
 const HomePage = () => {
   const { t } = useTranslation();
+  const { mealList } = useMealStore();
+
+  const getRandomMeals = (mealList: Array<Meal>) => {
+    const shuffledMeals = [...mealList].sort(() => Math.random() - 0.5);
+    return shuffledMeals.slice(0, 3);
+  };
+
   const [cardList, setCardList] = useState([]);
-  const {mealList} = useMealStore();
+
+  const onClickButton = () => {
+    setCardList(getRandomMeals(mealList));
+  };
+
   return (
     <View style={styles.container}>
       <H3 style={styles.title}>{t("welcomeMsg")}</H3>
@@ -33,13 +43,10 @@ const HomePage = () => {
   );
 };
 
-const onClickButton = () => {
-  console.log("Button Pressed!");
-};
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: 150,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#f8f8f8",
