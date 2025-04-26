@@ -5,10 +5,12 @@ import { Button, H1, H2, H3, H5 } from "tamagui";
 import { useTranslation } from "react-i18next";
 import { Link } from "expo-router";
 import { CardComponent } from "@/app/components/CardComponent";
+import { useMealStore } from "@/app/stores/mealStore";
 
 const HomePage = () => {
   const { t } = useTranslation();
   const [cardList, setCardList] = useState([]);
+  const {mealList} = useMealStore();
   return (
     <View style={styles.container}>
       <H3 style={styles.title}>{t("welcomeMsg")}</H3>
