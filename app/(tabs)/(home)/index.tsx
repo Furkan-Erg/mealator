@@ -37,7 +37,7 @@ const HomePage = () => {
       </Button>
       <YStack height={310} >
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          <CardComponent list={cardList}></CardComponent>
+          <CardComponent list={cardList} ></CardComponent>
         </ScrollView>
       </YStack>
       <Link href="/settings" style={{ marginTop: 20 }}>

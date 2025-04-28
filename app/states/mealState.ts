@@ -4,7 +4,7 @@ interface MealState {
   shoppingList: Array<string>;
   setMealList: (mealList: Array<Meal>) => void;
   addFavoriteMeal: (meal: Meal) => void;
-  removeFavoriteMeal: (mealName: string) => void;
+  removeFavoriteMeal: (id: number) => void;
   addToShoppingList: (ingredient: string) => void;
   removeFromShoppingList: (ingredient: string) => void;
   clearShoppingList: () => void;

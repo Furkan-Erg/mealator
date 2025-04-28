@@ -16,11 +16,9 @@ const useMealStore = create<MealState>((set) => ({
         favoriteMealList: [...state.favoriteMealList, meal],
       };
     }),
-  removeFavoriteMeal: (mealName) =>
+  removeFavoriteMeal: (id) =>
     set((state) => ({
-      favoriteMealList: state.favoriteMealList.filter(
-        (meal) => meal.name !== mealName
-      ),
+      favoriteMealList: state.favoriteMealList.filter((meal) => meal.id !== id),
     })),
   addToShoppingList: (ingredient) =>
     set((state) => {
