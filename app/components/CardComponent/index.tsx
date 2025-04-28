@@ -2,35 +2,35 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import type { CardProps } from "tamagui";
 import {
   Card,
-  H2,
   H4,
+  H5,
+  H6,
   Paragraph,
+  View,
   XStack,
 } from "tamagui";
 import { useRouter } from "expo-router";
-import { useState } from "react";
 import useMealStore from "@/app/stores/mealStore";
+import { StyleSheet, } from "react-native";
 
-export function CardComponent({ list, }: { list?: any[] }) {
-
+export function CardComponent({ list, }: { list?: any[], }) {
   return (
-    list &&
-    list.length > 0 && (
-
-      list?.map((item, index) => {
-        return (
-          <DemoCard
-            key={index}
-            name={item?.name}
-            id={item?.id}
-            description={item?.description}
-            ingredients={item?.ingredients}
-            width={250}
-            height={200}
-          />
-        );
-      })
-    )
+    <View style={styles.mealsBox}>
+      {list &&
+        list.length > 0 && list?.map((item, index) => {
+          return (
+            <DemoCard
+              key={index}
+              name={item?.name}
+              id={item?.id}
+              description={item?.description}
+              ingredients={item?.ingredients}
+              width={150}
+              height={175}
+            />
+          );
+        })}
+    </View>
   );
 }
 
@@ -40,7 +40,7 @@ export function DemoCard({
   description,
   ingredients,
   ...props
-}: CardProps & { id: number; name: string; description: string, ingredients: string[] }) {
+}: CardProps & { id: number; name: string; description: string, ingredients: string[], showDescription?: boolean }) {
   const { favoriteMealList, addFavoriteMeal, removeFavoriteMeal } = useMealStore();
   const router = useRouter(); // router hook
 
@@ -63,8 +63,7 @@ export function DemoCard({
   return (
     <Card bordered {...props} onPress={handlePress} margin={10} >
       <Card.Header padded>
-        <H4>{name}</H4>
-        <Paragraph theme="alt2">{description}</Paragraph>
+        <H6>{name}</H6>
       </Card.Header>
       <Card.Footer padded>
         <XStack flex={1} />
@@ -75,8 +74,13 @@ export function DemoCard({
 }
 
 
-const styles = {
+
+const styles = StyleSheet.create({
   icon: {
     position: "absolute",
   },
-};
+  mealsBox: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+  }
+});

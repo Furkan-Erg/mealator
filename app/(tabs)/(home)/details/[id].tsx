@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, ScrollView, StyleSheet, Text } from "react-native";
-import { useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams, useFocusEffect } from "expo-router";
 import { H2, H5, Button, Checkbox, Label, XStack, CheckboxProps } from "tamagui";
 import { Check as CheckIcon } from "@tamagui/lucide-icons";
 import { t } from "i18next";
@@ -12,6 +12,14 @@ const MealDetailPage = () => {
     const { mealList, addToShoppingList, shoppingList } = useMealStore();
     const meal = mealList.find((m) => m.id === Number(id));
     const [selectedIngredients, setSelectedIngredients] = useState<string[]>([]);
+
+    useFocusEffect(
+        React.useCallback(() => {
+            return () => {
+                setSelectedIngredients([]);
+            };
+        }, [])
+    );
 
     if (!meal) {
         return (
@@ -55,22 +63,22 @@ const MealDetailPage = () => {
             </View>
 
             <H5 mt="$4" mb="$2">{t('nutritionInfo')}</H5>
-            <View style={styles.nutritionBox} >
+            <View style={styles.nutritionBox}>
                 <View style={styles.nutritionRow}>
-                    <Text >{t('calories')}:</Text>
-                    <Text >{`${meal.nutritionInfo.calories} kcal`}</Text>
+                    <Text>{t('calories')}:</Text>
+                    <Text>{`${meal.nutritionInfo.calories} kcal`}</Text>
                 </View>
                 <View style={styles.nutritionRow}>
-                    <Text >{t('protein')}:</Text>
-                    <Text >{`${meal.nutritionInfo.protein}g`}</Text>
+                    <Text>{t('protein')}:</Text>
+                    <Text>{`${meal.nutritionInfo.protein}g`}</Text>
                 </View>
                 <View style={styles.nutritionRow}>
-                    <Text >{t('carbs')}:</Text>
-                    <Text >{`${meal.nutritionInfo.carbs}g`}</Text>
+                    <Text>{t('carbs')}:</Text>
+                    <Text>{`${meal.nutritionInfo.carbs}g`}</Text>
                 </View>
                 <View style={styles.nutritionRow}>
-                    <Text >{t('fat')}:</Text>
-                    <Text >{`${meal.nutritionInfo.fat}g`}</Text>
+                    <Text>{t('fat')}:</Text>
+                    <Text>{`${meal.nutritionInfo.fat}g`}</Text>
                 </View>
             </View>
 
@@ -121,7 +129,7 @@ const styles = StyleSheet.create({
         padding: 20,
         alignItems: "flex-start",
         backgroundColor: "#f9f9f9",
-        height: "100%",
+        minHeight: "100%",
     },
     title: {
         fontWeight: "bold",

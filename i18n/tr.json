@@ -18,5 +18,6 @@
   "calories": "Kalori",
   "protein": "Protein",
   "carbs": "Karbonhidrat",
-  "fat": "Yağ"
+  "fat": "Yağ",
+  "mealSearchPlaceholder": "Yemek ara"
 }

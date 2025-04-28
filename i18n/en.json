@@ -14,5 +14,6 @@
   "yourFavoriteMeals": "Your favorite meals",
   "noFavoritesYet": "You haven't added any meals to your favorites yet.",
   "noFoodFound": "No food found",
-  "nutritionInfo": "Nutrition Information"
+  "nutritionInfo": "Nutrition Information",
+  "mealSearchPlaceholder": "Search for a meal"
 }
