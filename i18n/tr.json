@@ -10,5 +10,13 @@
   "shoppingListNoData": "Henüz alışveriş listesine malzeme eklemediniz.",
   "ingredients": "Malzemeler",
   "mealDetails": "Yemek Detayları",
-  "mealList": "Yemek Listesi"
+  "mealList": "Yemek Listesi",
+  "yourFavoriteMeals": "Favori yemeklerin",
+  "noFavoritesYet": "Henüz favori yemek eklemediniz.",
+  "noFoodFound": "Yemek bulunamadı",
+  "nutritionInfo": "Besin Değerleri",
+  "calories": "Kalori",
+  "protein": "Protein",
+  "carbs": "Karbonhidrat",
+  "fat": "Yağ"
 }

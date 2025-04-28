@@ -5,22 +5,54 @@ import useMealStore from "../stores/mealStore";
 import { CardComponent } from "../components/CardComponent";
 import { t } from "i18next";
 
-const favorites = () => {
-  const { favoriteMealList } = useMealStore()
+const Favorites = () => {
+  const { favoriteMealList } = useMealStore();
+
   return (
-    <View style={style.center}>
-      <YStack  >
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <CardComponent list={favoriteMealList}></CardComponent>
-        </ScrollView>
+    <View style={styles.container}>
+      <YStack space="$4" style={styles.header}>
+        <H1 style={styles.title}>{t('favorites')}</H1>
+        <Text style={styles.subtitle}>{t('yourFavoriteMeals')}</Text>
       </YStack>
 
+      <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollView}>
+        {favoriteMealList.length === 0 ? (
+          <Text style={styles.emptyText}>{t('noFavoritesYet')}</Text>
+        ) : (
+          <CardComponent list={favoriteMealList} />
+        )}
+      </ScrollView>
     </View>
   );
 };
 
-export default favorites;
+export default Favorites;
 
-const style = StyleSheet.create({
-  center: { flex: 1, justifyContent: "center", alignItems: "center" },
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: "#f5f5f5",
+  },
+  header: {
+    marginBottom: 20,
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: "bold",
+    color: "#333",
+  },
+  subtitle: {
+    fontSize: 16,
+    color: "#666",
+  },
+  scrollView: {
+    paddingBottom: 20,
+  },
+  emptyText: {
+    fontSize: 18,
+    color: "#999",
+    textAlign: "center",
+    marginTop: 20,
+  },
 });

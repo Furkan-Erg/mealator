@@ -10,11 +10,19 @@ interface MealState {
   clearShoppingList: () => void;
 }
 
+export interface NutritionInfo {
+  calories: number;
+  protein: number;
+  fat: number;
+  carbs: number;
+}
+
 export interface Meal {
   id: number;
   name: string;
   description: string;
-  ingredients: Array<string>;
+  ingredients: string[];
+  nutritionInfo: NutritionInfo;
 }
 
 export default MealState;

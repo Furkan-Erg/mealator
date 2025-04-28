@@ -10,5 +10,9 @@
   "shoppingListNoData": "You haven't added any items to the shopping list yet.",
   "ingredients": "Ingredients",
   "mealDetails": "Meal Details",
-  "mealList": "Meal List"
+  "mealList": "Meal List",
+  "yourFavoriteMeals": "Your favorite meals",
+  "noFavoritesYet": "You haven't added any meals to your favorites yet.",
+  "noFoodFound": "No food found",
+  "nutritionInfo": "Nutrition Information"
 }

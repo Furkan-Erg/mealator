@@ -6,12 +6,14 @@ export const meals: Meal[] = [
     name: "Köfte",
     description: "Izgara yapılmış nefis Türk köftesi.",
     ingredients: ["kıyma", "soğan", "ekmek içi", "tuz", "karabiber", "kimyon"],
+    nutritionInfo: { calories: 300, protein: 20, fat: 15, carbs: 10 },
   },
   {
     id: 2,
     name: "Mantı",
     description: "Yoğurt ve sosla servis edilen küçük hamur cepleri.",
     ingredients: ["un", "yumurta", "kıyma", "soğan", "yoğurt", "salça", "nane"],
+    nutritionInfo: { calories: 400, protein: 15, fat: 10, carbs: 50 },
   },
   {
     id: 3,
@@ -25,12 +27,14 @@ export const meals: Meal[] = [
       "karabiber",
       "zeytinyağı",
     ],
+    nutritionInfo: { calories: 200, protein: 12, fat: 15, carbs: 8 },
   },
   {
     id: 4,
     name: "İskender Kebap",
     description: "Tereyağlı ve yoğurtlu döner servisi.",
     ingredients: ["döner eti", "tereyağı", "yoğurt", "pide", "salça"],
+    nutritionInfo: { calories: 600, protein: 30, fat: 35, carbs: 40 },
   },
   {
     id: 5,
@@ -44,6 +48,7 @@ export const meals: Meal[] = [
       "domates",
       "biber salçası",
     ],
+    nutritionInfo: { calories: 350, protein: 18, fat: 12, carbs: 45 },
   },
   {
     id: 6,
@@ -56,18 +61,21 @@ export const meals: Meal[] = [
       "baharatlar",
       "yeşillik",
     ],
+    nutritionInfo: { calories: 200, protein: 5, fat: 2, carbs: 40 },
   },
   {
     id: 7,
     name: "Karnıyarık",
     description: "Patlıcanların kıymalı harçla doldurulmasıyla yapılan yemek.",
     ingredients: ["patlıcan", "kıyma", "soğan", "domates", "biber", "sarımsak"],
+    nutritionInfo: { calories: 350, protein: 15, fat: 20, carbs: 25 },
   },
   {
     id: 8,
     name: "Pilav",
     description: "Yan yemeklerin vazgeçilmezi beyaz pirinç pilavı.",
     ingredients: ["pirinç", "tereyağı", "tuz", "su"],
+    nutritionInfo: { calories: 200, protein: 4, fat: 5, carbs: 40 },
   },
   {
     id: 9,
@@ -81,6 +89,7 @@ export const meals: Meal[] = [
       "kuş üzümü",
       "dolmalık fıstık",
     ],
+    nutritionInfo: { calories: 250, protein: 5, fat: 10, carbs: 35 },
   },
   {
     id: 10,
@@ -94,5 +103,6 @@ export const meals: Meal[] = [
       "havuç",
       "soğan",
     ],
+    nutritionInfo: { calories: 400, protein: 30, fat: 15, carbs: 20 },
   },
 ];
