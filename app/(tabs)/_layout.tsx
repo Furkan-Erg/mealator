@@ -10,6 +10,7 @@ export default function TabLayout() {
     favorites: "",
     mealList: "",
     shoppingList: "",
+    profile: "",
   });
 
   useEffect(() => {
@@ -18,6 +19,7 @@ export default function TabLayout() {
       favorites: t("favorites"),
       mealList: t("mealList"),
       shoppingList: t("shoppingList"),
+      profile: t("profile"),
     });
   }, [t]);
 
@@ -56,6 +58,15 @@ export default function TabLayout() {
           title: titles.shoppingList,
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="cart" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: titles.profile,
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="person" size={size} color={color} />
           ),
         }}
       />

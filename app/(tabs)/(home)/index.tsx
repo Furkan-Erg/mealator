@@ -6,6 +6,7 @@ import { Link } from "expo-router";
 import { CardComponent } from "@/app/components/CardComponent";
 import useMealStore from "@/app/stores/mealStore";
 import { Meal } from "@/app/states/mealState";
+import Login from "@/app/login";
 const HomePage = () => {
   const { t } = useTranslation();
   const { mealList } = useMealStore();
@@ -16,13 +17,13 @@ const HomePage = () => {
   };
 
   const [cardList, setCardList] = useState([]);
-
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const onClickButton = () => {
     setCardList(getRandomMeals(mealList));
   };
 
   return (
-    <View style={styles.container}>
+    isLoggedIn ? (<View style={styles.container}>
       <H3 style={styles.title}>{t("welcomeMsg")}</H3>
       <H5 style={styles.subtitle}>{t("subWelcomeMsg")}</H5>
       <Button
@@ -43,7 +44,8 @@ const HomePage = () => {
       <Link href="/settings" style={{ marginTop: 20 }}>
         {t("settings")}
       </Link>
-    </View>
+    </View>) : (<Login></Login>)
+
   );
 };
 

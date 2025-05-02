@@ -15,5 +15,12 @@
   "noFavoritesYet": "You haven't added any meals to your favorites yet.",
   "noFoodFound": "No food found",
   "nutritionInfo": "Nutrition Information",
-  "mealSearchPlaceholder": "Search for a meal"
+  "mealSearchPlaceholder": "Search for a meal",
+  "profile": "Profile",
+  "name": " Name",
+  "surname": "Surname",
+  "email": "Email",
+  "password": "Password",
+  "login": "Login",
+  "logout": "Logout"
 }

@@ -19,5 +19,12 @@
   "protein": "Protein",
   "carbs": "Karbonhidrat",
   "fat": "Yağ",
-  "mealSearchPlaceholder": "Yemek ara"
+  "mealSearchPlaceholder": "Yemek ara",
+  "profile": "Profil",
+  "name": "İsim",
+  "surname": "Soyisim",
+  "email": "E-posta",
+  "password": "Şifre",
+  "login": "Giriş yap",
+  "logout": "Çıkış yap"
 }

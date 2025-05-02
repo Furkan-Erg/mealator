@@ -3,7 +3,7 @@ import { meals } from "../data/mealData";
 import MealState from "../states/mealState";
 
 const useMealStore = create<MealState>((set) => ({
-  mealList: meals,
+  mealList: [],
   favoriteMealList: [],
   shoppingList: [],
   setMealList: (mealList) => set({ mealList }),

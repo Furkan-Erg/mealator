@@ -1,11 +1,15 @@
 import { Input, ScrollView, View, XStack, Text, debounce } from "tamagui";
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, use, useEffect } from "react";
 import { CardComponent } from "../components/CardComponent";
 import useMealStore from "../stores/mealStore";
 import { t } from "i18next";
-
+import axios, { AxiosResponse } from "axios";
+import API_URLS from "@/constants/apiUrls";
+import { useFocusEffect } from "expo-router";
+import { BaseModel } from "@/models/BaseModel";
+import { MealModel } from "@/models/mealListModel";
 const MealListPage = () => {
-    const { mealList } = useMealStore();
+    const [mealList, setMealList] = useState<MealModel[]>([]);
     const [searchText, setSearchText] = useState("");
 
     const handleInputChange = useCallback(
@@ -18,6 +22,28 @@ const MealListPage = () => {
     const filteredMeals = mealList.filter((meal) =>
         meal.name.toLowerCase().includes(searchText.toLowerCase())
     );
+
+    const getMealList = () => {
+        axios.get(API_URLS.BASE_URL + API_URLS.MEAL + API_URLS.LIST)
+            .then(response => {
+                const data: BaseModel<MealModel[]> = response.data;
+                if (data.success) {
+                    setMealList(data.data);
+                } else {
+                    console.error("Error fetching meal list:", data.errorMessage);
+                }
+            })
+            .catch(error => {
+                console.error("Error fetching meal list:", error);
+            });
+    };
+    useFocusEffect(
+        useCallback(() => {
+            getMealList();
+        }
+            , [])
+    );
+
 
     return (
         <View style={styles.container}>
