@@ -1,56 +1,41 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import useMealStore from "../stores/mealStore";
 import * as Sharing from 'expo-sharing';
 import { t } from "i18next";
+import { ShoppingListModel } from "@/models/ShoppingListModel";
+import { IngredientModel } from "@/models/IngredientModel";
+import axios from "axios";
+import API_URLS from "@/constants/apiUrls";
 
 const ShoppingListPage = () => {
-    const { shoppingList, removeFromShoppingList } = useMealStore();
-    const shoppingListText = shoppingList.join("\n");
+    const [shoppingList, setShoppingList] = useState<ShoppingListModel>();
+    const removeFromShoppingList = (ingredientId: number) => {
+        //TODO: api request to remove from shopping list
+    }
+    const getShoppingList = async () => {
+        //TODO: api request to get shopping list
+    }
 
-    const handleShare = async () => {
-        const isAvailable = await Sharing.isAvailableAsync();
-        if (isAvailable) {
-            try {
-                await Sharing.shareAsync(shoppingListText, {
-                    dialogTitle: 'Alışveriş Listesini Paylaş',
-                    UTI: 'public.text',
-                });
-            } catch (error) {
-                console.log("Paylaşım hatası:", error);
-            }
-        } else {
-            alert("Paylaşım özelliği desteklenmiyor.");
-        }
-    };
 
     return (
         <View style={styles.container}>
             <Text style={styles.title}>{t("shoppingList")}</Text>
-            {shoppingList.length === 0 ? (
+            {shoppingList?.ingredientList.length === 0 ? (
                 <Text style={styles.emptyMessage}>{t("shoppingListNoData")}</Text>
             ) : (
-                shoppingList.map((item, index) => (
+                shoppingList?.ingredientList.map((ingredient: IngredientModel, index) => (
                     <View style={styles.itemContainer} key={index}>
-                        <Text style={styles.itemText}>{item}</Text>
+                        <Text style={styles.itemText}>{ingredient.name}</Text>
 
                         <TouchableOpacity
                             style={styles.deleteButton}
-                            onPress={() => removeFromShoppingList(item)}
+                            onPress={() => removeFromShoppingList(ingredient.id)}
                         >
                             <Text style={styles.deleteText}>Sil</Text>
                         </TouchableOpacity>
                     </View>
                 ))
-            )}
-
-            {shoppingList.length > 0 && (
-                <TouchableOpacity
-                    style={styles.shareButton}
-                    onPress={handleShare}
-                >
-                    <Text style={styles.shareText}>Paylaş</Text>
-                </TouchableOpacity>
             )}
         </View>
     );

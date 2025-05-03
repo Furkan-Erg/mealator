@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { View, ScrollView, StyleSheet, Text } from "react-native";
 import { useLocalSearchParams, useFocusEffect } from "expo-router";
 import { H2, H5, Button, Checkbox, Label, XStack, CheckboxProps } from "tamagui";
@@ -6,28 +6,27 @@ import { Check as CheckIcon } from "@tamagui/lucide-icons";
 import { t } from "i18next";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import useMealStore from "@/app/stores/mealStore";
+import { Meal } from "@/app/states/mealState";
+import axios from "axios";
+import API_URLS from "@/constants/apiUrls";
+import { MealModel } from "@/models/MealModel";
+import { BaseModel } from "@/models/BaseModel";
 
 const MealDetailPage = () => {
     const { id } = useLocalSearchParams();
-    const { mealList, addToShoppingList, shoppingList } = useMealStore();
-    const meal = mealList.find((m) => m.id === Number(id));
+    const { addToShoppingList, shoppingList } = useMealStore();
+    const [meal, setMeal] = useState<MealModel>();
     const [selectedIngredients, setSelectedIngredients] = useState<string[]>([]);
 
     useFocusEffect(
-        React.useCallback(() => {
+        useCallback(() => {
             return () => {
                 setSelectedIngredients([]);
             };
         }, [])
     );
 
-    if (!meal) {
-        return (
-            <View style={styles.centered}>
-                <Text>{t('noFoodFound')}</Text>
-            </View>
-        );
-    }
+
 
     const toggleIngredient = (ingredient: string) => {
         setSelectedIngredients((prev) =>
@@ -44,14 +43,42 @@ const MealDetailPage = () => {
         setSelectedIngredients([]);
     };
 
+    const getMealById = async () => {
+        axios.get(API_URLS.BASE_URL + API_URLS.MEAL + API_URLS.GETBYID.replace("{id}", id as string))
+            .then((response) => {
+                const data: BaseModel<MealModel> = response.data;
+                if (data.success) {
+                    setMeal(data.data);
+                } else {
+                    console.error("Error fetching meal by ID:", data.errorMessage);
+                }
+            }).catch((error) => {
+                console.error("Error fetching meal by ID:", error);
+            })
+    }
+    useFocusEffect(
+        useCallback(() => {
+            getMealById();
+        }
+            , [id])
+    );
+    if (!meal) {
+        return (
+            <View style={styles.centered}>
+                <Text>{t('noFoodFound')}</Text>
+            </View>
+        );
+    }
+
+
     return (
         <ScrollView contentContainerStyle={styles.container}>
-            <H2 style={styles.title}>{meal.name}</H2>
-            <H5 style={styles.description}>{meal.description}</H5>
+            <H2 style={styles.title}>{meal?.name}</H2>
+            <H5 style={styles.description}>{meal?.description}</H5>
 
             <H5 mt="$4" mb="$2">{t('ingredients')}</H5>
             <View style={styles.ingredientBox}>
-                {meal.ingredients.map((ingredient) => (
+                {meal?.ingredients?.map((ingredient) => (
                     <View key={ingredient} style={styles.ingredientRow}>
                         <CheckboxWithLabel
                             size="$4"
@@ -66,19 +93,19 @@ const MealDetailPage = () => {
             <View style={styles.nutritionBox}>
                 <View style={styles.nutritionRow}>
                     <Text>{t('calories')}:</Text>
-                    <Text>{`${meal.nutritionInfo.calories} kcal`}</Text>
+                    <Text>{`${meal?.nutritionInfo?.calories} kcal`}</Text>
                 </View>
                 <View style={styles.nutritionRow}>
                     <Text>{t('protein')}:</Text>
-                    <Text>{`${meal.nutritionInfo.protein}g`}</Text>
+                    <Text>{`${meal?.nutritionInfo?.protein}g`}</Text>
                 </View>
                 <View style={styles.nutritionRow}>
                     <Text>{t('carbs')}:</Text>
-                    <Text>{`${meal.nutritionInfo.carbs}g`}</Text>
+                    <Text>{`${meal?.nutritionInfo?.carbs}g`}</Text>
                 </View>
                 <View style={styles.nutritionRow}>
                     <Text>{t('fat')}:</Text>
-                    <Text>{`${meal.nutritionInfo.fat}g`}</Text>
+                    <Text>{`${meal?.nutritionInfo?.fat}g`}</Text>
                 </View>
             </View>
 
@@ -95,7 +122,7 @@ const MealDetailPage = () => {
             )}
         </ScrollView>
     );
-
+    //TODO: what kind of uggly hack is this? fix it later -> create a new component for checkbox with label
     function CheckboxWithLabel({
         size,
         label,

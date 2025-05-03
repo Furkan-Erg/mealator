@@ -7,7 +7,7 @@ import axios, { AxiosResponse } from "axios";
 import API_URLS from "@/constants/apiUrls";
 import { useFocusEffect } from "expo-router";
 import { BaseModel } from "@/models/BaseModel";
-import { MealModel } from "@/models/mealListModel";
+import { MealModel } from "@/models/MealModel";
 const MealListPage = () => {
     const [mealList, setMealList] = useState<MealModel[]>([]);
     const [searchText, setSearchText] = useState("");
@@ -19,6 +19,7 @@ const MealListPage = () => {
         []
     );
 
+    //TODO: use api to filter meal list
     const filteredMeals = mealList.filter((meal) =>
         meal.name.toLowerCase().includes(searchText.toLowerCase())
     );
