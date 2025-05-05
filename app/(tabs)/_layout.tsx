@@ -2,8 +2,11 @@ import { Tabs } from "expo-router";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
+import useUserStore from "../stores/userStore";
+import AuthPage from "../auth";
 
 export default function TabLayout() {
+  const { userToken } = useUserStore();
   const { t } = useTranslation();
   const [titles, setTitles] = useState({
     home: "",
@@ -24,7 +27,7 @@ export default function TabLayout() {
   }, [t]);
 
   return (
-    <Tabs screenOptions={{ headerShown: false }}>
+    userToken ? <Tabs screenOptions={{ headerShown: false }}>
       <Tabs.Screen
         name="favorites"
         options={{
@@ -70,6 +73,6 @@ export default function TabLayout() {
           ),
         }}
       />
-    </Tabs>
+    </Tabs> : <AuthPage></AuthPage>
   );
 }

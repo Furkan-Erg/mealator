@@ -22,5 +22,11 @@
   "email": "Email",
   "password": "Password",
   "login": "Login",
-  "logout": "Logout"
+  "logout": "Logout",
+  "username": "Username",
+  "please_login": "Please login",
+  "no_account_question": "Don't have an account?",
+  "register": "Register",
+  "please_register": "Please register",
+  "already_have_account": "Already have an account?"
 }

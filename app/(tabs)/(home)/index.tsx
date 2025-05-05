@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, StyleSheet } from "react-native";
 import { Button, H3, H5, ScrollView, YStack } from "tamagui";
 import { useTranslation } from "react-i18next";
@@ -6,10 +6,12 @@ import { Link } from "expo-router";
 import { CardComponent } from "@/app/components/CardComponent";
 import useMealStore from "@/app/stores/mealStore";
 import { Meal } from "@/app/states/mealState";
-import Login from "@/app/login";
+import Login from "@/app/components/AuthComponents/login";
+import useUserStore from "@/app/stores/userStore";
 const HomePage = () => {
   const { t } = useTranslation();
   const { mealList } = useMealStore();
+  const { userToken } = useUserStore();
 
   const getRandomMeals = (mealList: Array<Meal>) => {
     const shuffledMeals = [...mealList].sort(() => Math.random() - 0.5);
@@ -17,10 +19,18 @@ const HomePage = () => {
   };
 
   const [cardList, setCardList] = useState([]);
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const onClickButton = () => {
     setCardList(getRandomMeals(mealList));
   };
+
+  useEffect(() => {
+    const checkLoginStatus = async () => {
+      setIsLoggedIn(!!userToken);
+    };
+    checkLoginStatus();
+  }
+    , [userToken]);
 
   return (
     isLoggedIn ? (<View style={styles.container}>

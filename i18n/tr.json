@@ -26,5 +26,11 @@
   "email": "E-posta",
   "password": "Şifre",
   "login": "Giriş yap",
-  "logout": "Çıkış yap"
+  "logout": "Çıkış yap",
+  "username": "Kullanıcı adı",
+  "please_login": "Lütfen giriş yapınız",
+  "no_account_question": "Hesabın yok mu?",
+  "register": "Kayıt ol",
+  "please_register": "Lütfen kayıt olun",
+  "already_have_account": "Zaten bir hesabın var mı?"
 }

@@ -6,7 +6,7 @@ import { t } from "i18next";
 import axios, { AxiosResponse } from "axios";
 import API_URLS from "@/constants/apiUrls";
 import { useFocusEffect } from "expo-router";
-import { BaseModel } from "@/models/BaseModel";
+import { BaseModel } from "@/models/BaseResponse";
 import { MealModel } from "@/models/MealModel";
 const MealListPage = () => {
     const [mealList, setMealList] = useState<MealModel[]>([]);

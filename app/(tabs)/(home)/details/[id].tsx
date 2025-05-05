@@ -10,7 +10,7 @@ import { Meal } from "@/app/states/mealState";
 import axios from "axios";
 import API_URLS from "@/constants/apiUrls";
 import { MealModel } from "@/models/MealModel";
-import { BaseModel } from "@/models/BaseModel";
+import { BaseModel } from "@/models/BaseResponse";
 
 const MealDetailPage = () => {
     const { id } = useLocalSearchParams();
