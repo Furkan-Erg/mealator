@@ -23,9 +23,9 @@ const LoginPage = ({ changePage }: { changePage: Function }) => {
                 API_URLS.BASE_URL + API_URLS.LOGIN,
                 requestBody
             );
-            const responseData: BaseResponse<string> = response.data;
+            const responseData: BaseResponse<{ token: string }> = response.data;
             if (responseData.success) {
-                setUserToken(responseData.data);
+                setUserToken(responseData.data.token);
             }
         } catch (error) {
             console.error("Login failed", error);

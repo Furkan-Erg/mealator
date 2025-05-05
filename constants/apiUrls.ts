@@ -7,5 +7,6 @@ const API_URLS = {
   DELETE: "/delete/{id}",
   LOGIN: "/auth/login",
   REGISTER: "/auth/register",
+  USERINFO: "/user/info",
 };
 export default API_URLS;
