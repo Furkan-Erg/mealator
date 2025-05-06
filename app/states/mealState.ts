@@ -1,9 +1,11 @@
+import { MealModel } from "@/models/MealModel";
+
 interface MealState {
-  mealList: Array<Meal>;
-  favoriteMealList: Array<Meal>;
+  mealList: Array<MealModel>;
+  favoriteMealList: Array<MealModel>;
   shoppingList: Array<string>;
-  setMealList: (mealList: Array<Meal>) => void;
-  addFavoriteMeal: (meal: Meal) => void;
+  setMealList: (mealList: Array<MealModel>) => void;
+  addFavoriteMeal: (meal: MealModel) => void;
   removeFavoriteMeal: (id: number) => void;
   addToShoppingList: (ingredient: string) => void;
   removeFromShoppingList: (ingredient: string) => void;
@@ -15,14 +17,6 @@ export interface NutritionInfo {
   protein: number;
   fat: number;
   carbs: number;
-}
-
-export interface Meal {
-  id: number;
-  name: string;
-  description: string;
-  ingredients: string[];
-  nutritionInfo: NutritionInfo;
 }
 
 export default MealState;

@@ -9,11 +9,13 @@ import {
   View,
   XStack,
 } from "tamagui";
-import { useRouter } from "expo-router";
+import { useFocusEffect, useRouter } from "expo-router";
 import useMealStore from "@/app/stores/mealStore";
 import { StyleSheet, } from "react-native";
+import { MealModel } from "@/models/MealModel";
+import { use, useCallback, useEffect, useState } from "react";
 
-export function CardComponent({ list, }: { list?: any[], }) {
+export function CardComponent({ list, toggleFavoriteItem }: { list?: any[], toggleFavoriteItem: (meal: MealModel) => void }) {
   return (
     <View style={styles.mealsBox}>
       {list &&
@@ -25,6 +27,7 @@ export function CardComponent({ list, }: { list?: any[], }) {
               id={item?.id}
               description={item?.description}
               ingredients={item?.ingredients}
+              toggleFavoriteItem={toggleFavoriteItem}
               width={150}
               height={175}
             />
@@ -39,26 +42,29 @@ export function DemoCard({
   name,
   description,
   ingredients,
+  toggleFavoriteItem,
   ...props
-}: CardProps & { id: number; name: string; description: string, ingredients: string[], showDescription?: boolean }) {
-  const { favoriteMealList, addFavoriteMeal, removeFavoriteMeal } = useMealStore();
-  const router = useRouter(); // router hook
-
-  function isFavorite() {
-    return favoriteMealList.some((meal) => meal.id === id);
-  }
+}: CardProps & { id: number; name: string; description: string, ingredients: string[], showDescription?: boolean, toggleFavoriteItem: (meal: MealModel) => void }) {
+  const router = useRouter();
+  const [isFavorite, setIsFavorite] = useState(false);
 
   const handlePress = () => {
     router.push(`/details/${id}`);
   };
 
   const handleBookmarkPress = () => {
-    if (favoriteMealList.some((meal) => meal.id === id)) {
-      removeFavoriteMeal(id);
-    } else {
-      addFavoriteMeal({ id, name, description, ingredients });
-    }
+    toggleFavoriteItem({ id, name, description, ingredients });
+    setIsFavorite(!isFavorite)
   }
+
+  useFocusEffect(
+    useCallback(() => {
+      const favoriteMeals = useMealStore.getState().favoriteMealList;
+      const isFavoriteMeal = favoriteMeals.some((meal) => meal.id === id);
+      setIsFavorite(isFavoriteMeal);
+    }
+      , [id])
+  );
 
   return (
     <Card bordered {...props} onPress={handlePress} margin={10} >
@@ -67,7 +73,7 @@ export function DemoCard({
       </Card.Header>
       <Card.Footer padded>
         <XStack flex={1} />
-        <Ionicons name="bookmark" size={32} color="grey" onPress={handleBookmarkPress} style={isFavorite() ? { color: 'red' } : ''} />
+        <Ionicons name="bookmark" size={32} color="grey" onPress={handleBookmarkPress} style={isFavorite ? { color: 'red' } : ''} />
       </Card.Footer>
     </Card>
   );

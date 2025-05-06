@@ -1,12 +1,12 @@
-import { StyleSheet, View } from "react-native";
-import React from "react";
-import { H3, H5, Input, Button, Paragraph } from "tamagui";
-import axios from "axios";
-import API_URLS from "@/constants/apiUrls";
-import { t } from "i18next";
+import api from "@/api";
 import { PageType } from "@/app/enums/PageType";
-import { BaseResponse } from "@/models/BaseResponse";
 import useUserStore from "@/app/stores/userStore";
+import API_URLS from "@/constants/apiUrls";
+import { BaseResponse } from "@/models/BaseResponse";
+import { t } from "i18next";
+import React from "react";
+import { StyleSheet, View } from "react-native";
+import { Button, H3, H5, Input, Paragraph } from "tamagui";
 
 const RegisterPage = ({ changePage }: { changePage: Function }) => {
     const [name, setName] = React.useState("");
@@ -23,7 +23,7 @@ const RegisterPage = ({ changePage }: { changePage: Function }) => {
             password: password,
         };
 
-        await axios.post(API_URLS.BASE_URL + API_URLS.REGISTER, requestBody).then((response) => {
+        await api.post(API_URLS.REGISTER, requestBody).then((response) => {
             const responseData: BaseResponse<string> = response.data;
             if (responseData.success) {
                 setUserToken(responseData.data);

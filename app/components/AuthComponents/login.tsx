@@ -1,13 +1,13 @@
-import { StyleSheet, View } from "react-native";
-import React, { useState } from "react";
-import { H3, H5, Input, Button, XStack, Paragraph } from "tamagui";
-import { t } from "i18next";
-import axios from "axios";
-import API_URLS from "@/constants/apiUrls";
-import Ionicons from "@expo/vector-icons/Ionicons";
-import { BaseResponse } from "@/models/BaseResponse";
-import useUserStore from "../../stores/userStore";
+import api from "@/api";
 import { PageType } from "@/app/enums/PageType";
+import API_URLS from "@/constants/apiUrls";
+import { BaseResponse } from "@/models/BaseResponse";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { t } from "i18next";
+import React, { useState } from "react";
+import { StyleSheet, View } from "react-native";
+import { Button, H3, H5, Input, Paragraph, XStack } from "tamagui";
+import useUserStore from "../../stores/userStore";
 
 const LoginPage = ({ changePage }: { changePage: Function }) => {
     const [username, setUsername] = useState("");
@@ -19,8 +19,8 @@ const LoginPage = ({ changePage }: { changePage: Function }) => {
         const requestBody = { username, password };
 
         try {
-            const response = await axios.post(
-                API_URLS.BASE_URL + API_URLS.LOGIN,
+            const response = await api.post(
+                API_URLS.LOGIN,
                 requestBody
             );
             const responseData: BaseResponse<{ token: string }> = response.data;

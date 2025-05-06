@@ -1,12 +1,43 @@
 import { View, Text, StyleSheet, ScrollView } from "react-native";
-import React from "react";
+import React, { useCallback } from "react";
 import { H1, H2, YStack } from "tamagui";
 import useMealStore from "../stores/mealStore";
 import { CardComponent } from "../components/CardComponent";
 import { t } from "i18next";
+import API_URLS from "@/constants/apiUrls";
+import api from "@/api";
+import { BaseResponse } from "@/models/BaseResponse";
+import { useFocusEffect } from "expo-router";
+import { MealModel } from "@/models/MealModel";
 
 const Favorites = () => {
-  const { favoriteMealList } = useMealStore();
+  const { favoriteMealList, removeFavoriteMeal, addFavoriteMeal } = useMealStore();
+  const toggleFavoriteItem = (meal: MealModel) => {
+    api.post(API_URLS.MEAL + API_URLS.FAVORITE.replace("{id}", meal.id.toString()))
+      .then((response) => {
+        useMealStore.getState().favoriteMealList.some((m) => m.id == meal.id) ? removeFavoriteMeal(meal.id) : addFavoriteMeal(meal);
+      })
+      .catch((error) => {
+        console.error("Error adding to favorites:", error);
+      }
+      );
+  }
+
+  const getFavoriteMealList = () => {
+    api.get(API_URLS.MEAL + API_URLS.FAVORITELIST).then((response) => {
+      const responseData: BaseResponse<MealModel[]> = response.data;
+      if (responseData.success) {
+        useMealStore.setState({ favoriteMealList: responseData.data });
+      }
+    })
+      .catch((error) => {
+        console.error("Error fetching favorite meal list:", error);
+      }
+      );
+  }
+  useFocusEffect(useCallback(() => {
+    getFavoriteMealList();
+  }, []));
 
   return (
     <View style={styles.container}>
@@ -19,7 +50,7 @@ const Favorites = () => {
         {favoriteMealList.length === 0 ? (
           <Text style={styles.emptyText}>{t('noFavoritesYet')}</Text>
         ) : (
-          <CardComponent list={favoriteMealList} />
+          <CardComponent list={favoriteMealList} toggleFavoriteItem={toggleFavoriteItem} />
         )}
       </ScrollView>
     </View>

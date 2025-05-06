@@ -6,11 +6,10 @@ import { Check as CheckIcon } from "@tamagui/lucide-icons";
 import { t } from "i18next";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import useMealStore from "@/app/stores/mealStore";
-import { Meal } from "@/app/states/mealState";
-import axios from "axios";
 import API_URLS from "@/constants/apiUrls";
 import { MealModel } from "@/models/MealModel";
-import { BaseModel } from "@/models/BaseResponse";
+import { BaseResponse } from "@/models/BaseResponse";
+import api from "@/api";
 
 const MealDetailPage = () => {
     const { id } = useLocalSearchParams();
@@ -44,9 +43,9 @@ const MealDetailPage = () => {
     };
 
     const getMealById = async () => {
-        axios.get(API_URLS.BASE_URL + API_URLS.MEAL + API_URLS.GETBYID.replace("{id}", id as string))
+        api.get(API_URLS.MEAL + API_URLS.GETBYID.replace("{id}", id as string))
             .then((response) => {
-                const data: BaseModel<MealModel> = response.data;
+                const data: BaseResponse<MealModel> = response.data;
                 if (data.success) {
                     setMeal(data.data);
                 } else {

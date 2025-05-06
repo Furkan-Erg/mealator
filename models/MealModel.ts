@@ -5,5 +5,5 @@ export interface MealModel {
   name: string;
   description: string;
   ingredients: string[];
-  nutritionInfo: NutritionInfoModel;
+  //nutritionInfo: NutritionInfoModel;
 }

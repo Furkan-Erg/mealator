@@ -8,7 +8,12 @@ import useMealStore from "@/app/stores/mealStore";
 import { Meal } from "@/app/states/mealState";
 import Login from "@/app/components/AuthComponents/login";
 import useUserStore from "@/app/stores/userStore";
+import api from "@/api";
+import API_URLS from "@/constants/apiUrls";
+import { MealModel } from "@/models/MealModel";
 const HomePage = () => {
+  const { favoriteMealList, removeFavoriteMeal, addFavoriteMeal } = useMealStore();
+
   const { t } = useTranslation();
   const { mealList } = useMealStore();
   const { userToken } = useUserStore();
@@ -23,6 +28,18 @@ const HomePage = () => {
   const onClickButton = () => {
     setCardList(getRandomMeals(mealList));
   };
+
+  const toggleFavoriteItem = (meal: MealModel) => {
+    api.post(API_URLS.MEAL + API_URLS.FAVORITE.replace("{id}", meal.id.toString()))
+      .then((response) => {
+        favoriteMealList.includes(meal) ? removeFavoriteMeal(meal.id) : addFavoriteMeal(meal);
+      })
+      .catch((error) => {
+        console.error("Error adding to favorites:", error);
+      }
+      );
+  }
+
 
   useEffect(() => {
     const checkLoginStatus = async () => {
@@ -48,7 +65,7 @@ const HomePage = () => {
       </Button>
       <YStack height={310} >
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          <CardComponent list={cardList} ></CardComponent>
+          <CardComponent list={cardList} toggleFavoriteItem={toggleFavoriteItem}></CardComponent>
         </ScrollView>
       </YStack>
       <Link href="/settings" style={{ marginTop: 20 }}>

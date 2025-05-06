@@ -1,14 +1,16 @@
 import { Input, ScrollView, View, XStack, Text, debounce } from "tamagui";
 import React, { useState, useCallback, use, useEffect } from "react";
 import { CardComponent } from "../components/CardComponent";
-import useMealStore from "../stores/mealStore";
 import { t } from "i18next";
-import axios, { AxiosResponse } from "axios";
 import API_URLS from "@/constants/apiUrls";
 import { useFocusEffect } from "expo-router";
-import { BaseModel } from "@/models/BaseResponse";
+import { BaseResponse } from "@/models/BaseResponse";
 import { MealModel } from "@/models/MealModel";
+import api from "@/api";
+import useMealStore from "../stores/mealStore";
 const MealListPage = () => {
+    const { favoriteMealList, removeFavoriteMeal, addFavoriteMeal } = useMealStore();
+
     const [mealList, setMealList] = useState<MealModel[]>([]);
     const [searchText, setSearchText] = useState("");
 
@@ -19,15 +21,14 @@ const MealListPage = () => {
         []
     );
 
-    //TODO: use api to filter meal list
     const filteredMeals = mealList.filter((meal) =>
         meal.name.toLowerCase().includes(searchText.toLowerCase())
     );
 
     const getMealList = () => {
-        axios.get(API_URLS.BASE_URL + API_URLS.MEAL + API_URLS.LIST)
+        api.get(API_URLS.MEAL + API_URLS.LIST)
             .then(response => {
-                const data: BaseModel<MealModel[]> = response.data;
+                const data: BaseResponse<MealModel[]> = response.data;
                 if (data.success) {
                     setMealList(data.data);
                 } else {
@@ -38,6 +39,17 @@ const MealListPage = () => {
                 console.error("Error fetching meal list:", error);
             });
     };
+    const toggleFavoriteItem = (meal: MealModel) => {
+        api.post(API_URLS.MEAL + API_URLS.FAVORITE.replace("{id}", meal.id.toString()))
+            .then((response) => {
+                useMealStore.getState().favoriteMealList.includes(meal) ? removeFavoriteMeal(meal.id) : addFavoriteMeal(meal);
+            })
+            .catch((error) => {
+                console.error("Error adding to favorites:", error);
+            }
+            );
+    }
+
     useFocusEffect(
         useCallback(() => {
             getMealList();
@@ -60,7 +72,7 @@ const MealListPage = () => {
                 />
             </XStack>
             <ScrollView showsVerticalScrollIndicator={false}>
-                <CardComponent list={filteredMeals}></CardComponent>
+                <CardComponent list={filteredMeals} toggleFavoriteItem={toggleFavoriteItem}></CardComponent>
             </ScrollView>
         </View>
     );

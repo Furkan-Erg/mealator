@@ -1,12 +1,12 @@
-import { View, StyleSheet, Alert } from 'react-native';
-import React, { useCallback, } from 'react';
-import { H3, H5, Button, XStack } from 'tamagui';
-import useUserStore from '../stores/userStore';
-import { t } from 'i18next';
-import axios from 'axios';
+import api from '@/api';
 import API_URLS from '@/constants/apiUrls';
-import { useFocusEffect } from 'expo-router';
 import { UserModel } from '@/models/UserModel';
+import { useFocusEffect } from 'expo-router';
+import { t } from 'i18next';
+import React, { useCallback, } from 'react';
+import { Alert, StyleSheet, View } from 'react-native';
+import { Button, H3, XStack } from 'tamagui';
+import useUserStore from '../stores/userStore';
 
 
 const ProfilePage = () => {
@@ -18,14 +18,13 @@ const ProfilePage = () => {
         ]);
     };
     const getUserInfo = async () => {
-        axios.get(API_URLS.BASE_URL + API_URLS.USERINFO, {
+        api.get(API_URLS.USERINFO, {
             headers: {
                 Authorization: `Bearer ${userToken}`,
             }
         }).then((response) => {
             const userData: UserModel = response.data.data;
             setUser(userData);
-            console.log("User Data:", userData);
         });
 
     }
